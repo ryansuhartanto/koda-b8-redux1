@@ -142,82 +142,78 @@ export default function Form() {
 		setSubmitted(true);
 	}
 
-	if (submitted) {
-		return (
-			<main className="max-w-3xl mx-auto p-4">
+	return (
+		<main className="max-w-3xl mx-auto p-4 flex flex-col gap-6">
+			{!submitted ? (
+				<form
+					className="flex flex-col gap-4"
+					onSubmit={handleSubmit(onSubmit)}
+				>
+					<Card variant="header">
+						<h1 className="text-3xl">Form Survey Perokok</h1>
+					</Card>
+
+					{fields.map((field) => (
+						<Card key={field.input}>
+							<div className="text-lg">
+								<label htmlFor={field.input}>{field.label}</label>
+							</div>
+
+							{field.choices ? (
+								field.choices.map((choice) => (
+									<div
+										key={choice.value}
+										className="flex items-center gap-3"
+									>
+										<input
+											type={field.type}
+											id={choice.value}
+											value={choice.value}
+											className={tw.inputToggle}
+											{...register(field.input)}
+										/>
+										<label
+											htmlFor={choice.value}
+											className="cursor-pointer"
+										>
+											{choice.label}
+										</label>
+									</div>
+								))
+							) : (
+								<input
+									type={field.type}
+									id={field.input}
+									placeholder="Jawaban Anda"
+									className="border-0 p-4 py-5 bg-black/2.5 border-b border-black/50 mb-px focus:outline-none focus:border-b-2 focus:border-black focus:mb-0"
+									{...register(field.input)}
+								/>
+							)}
+
+							{errors[field.input] && (
+								<p className="text-red-500 text-sm mbs-1">
+									{errors[field.input].message}
+								</p>
+							)}
+						</Card>
+					))}
+
+					<div className="flex justify-between mt-2">
+						<Button type="submit">Simpan</Button>
+						<Button
+							type="reset"
+							onClick={reset}
+							variant="text"
+						>
+							Bersihkan form
+						</Button>
+					</div>
+				</form>
+			) : (
 				<Card variant="header">
 					<h1 className="text-3xl">Terimakasih telah mengisi form ini.</h1>
 				</Card>
-			</main>
-		);
-	}
-
-	return (
-		<main className="max-w-3xl mx-auto p-4 flex flex-col gap-6">
-			<form
-				className="flex flex-col gap-4"
-				onSubmit={handleSubmit(onSubmit)}
-			>
-				<Card variant="header">
-					<h1 className="text-3xl">Form Survey Perokok</h1>
-				</Card>
-
-				{fields.map((field) => (
-					<Card key={field.input}>
-						<div className="text-lg">
-							<label htmlFor={field.input}>{field.label}</label>
-						</div>
-
-						{field.choices ? (
-							field.choices.map((choice) => (
-								<div
-									key={choice.value}
-									className="flex items-center gap-3"
-								>
-									<input
-										type={field.type}
-										id={choice.value}
-										value={choice.value}
-										className={tw.inputToggle}
-										{...register(field.input)}
-									/>
-									<label
-										htmlFor={choice.value}
-										className="cursor-pointer"
-									>
-										{choice.label}
-									</label>
-								</div>
-							))
-						) : (
-							<input
-								type={field.type}
-								id={field.input}
-								placeholder="Jawaban Anda"
-								className="border-0 p-4 py-5 bg-black/2.5 border-b border-black/50 mb-px focus:outline-none focus:border-b-2 focus:border-black focus:mb-0"
-								{...register(field.input)}
-							/>
-						)}
-
-						{errors[field.input] && (
-							<p className="text-red-500 text-sm mbs-1">
-								{errors[field.input].message}
-							</p>
-						)}
-					</Card>
-				))}
-
-				<div className="flex justify-between mt-2">
-					<Button type="submit">Simpan</Button>
-					<Button
-						type="reset"
-						onClick={reset}
-						variant="text"
-					>
-						Bersihkan form
-					</Button>
-				</div>
-			</form>
+			)}
 
 			<Link
 				to="/result"
