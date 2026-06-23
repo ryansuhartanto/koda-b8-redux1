@@ -1,9 +1,9 @@
 {
-	"name": "react5",
+	"name": "redux1",
 	"private": true,
 	"license": "MIT",
 	"author": "Ryan Suhartanto <suhartanto@kekkon.nexus>",
-	"repository": "ryansuhartanto/koda-b8-react5",
+	"repository": "ryansuhartanto/koda-b8-redux1",
 	"type": "module",
 	"imports": {
 		"#/*": "./src/*"
