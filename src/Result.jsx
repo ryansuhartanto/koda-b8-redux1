@@ -11,18 +11,17 @@ const BRAND_LABELS = {
 function formatBrand(brands = []) {
 	return brands.map((b) => BRAND_LABELS[b] ?? b).join(", ");
 }
+const genderO = {
+	male: "Laki-laki",
+	female: "Perempuan",
+};
+const smokingO = {
+	"0": "Ya",
+	"1": "Tidak",
+};
 
 export default function Result() {
 	const data = useSelector((state) => state.survey.entries);
-
-	const genderO = {
-		male: "Laki-laki",
-		female: "Perempuan",
-	};
-	const smokingO = {
-		"0": "Ya",
-		"1": "Tidak",
-	};
 
 	return (
 		<main className="max-w-6xl mx-auto p-4 flex flex-col gap-4">
