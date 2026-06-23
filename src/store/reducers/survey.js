@@ -23,9 +23,14 @@ const surveySlice = createSlice({
 	reducers: {
 		addEntry(state, action) {
 			state.entries.push(action.payload);
+			return state;
+		},
+		removeEntry(state, action) {
+			state.entries.splice(action.payload, 1);
+			return state;
 		},
 	},
 });
 
-export const { addEntry } = surveySlice.actions;
+export const { addEntry, removeEntry } = surveySlice.actions;
 export default surveySlice.reducer;

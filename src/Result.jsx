@@ -1,5 +1,7 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
+
+import { removeEntry } from "#/store/reducers/survey";
 
 const BRAND_LABELS = {
 	"gudang-garam-filter": "Gudang Garam Filter",
@@ -22,6 +24,7 @@ const smokingO = {
 
 export default function Result() {
 	const data = useSelector((state) => state.survey.entries);
+	const dispatch = useDispatch();
 
 	return (
 		<main className="max-w-6xl mx-auto p-4 flex flex-col gap-4">
@@ -69,19 +72,28 @@ export default function Result() {
 								) => (
 									<tr
 										key={i}
-										className={`bg-white ${i < data.length - 1 ? "border-b border-black/10" : ""}`}
+										className={`bg-white ${i < data.length - 1 ? "border-b border-black/10" : ""} *:px-6 *:py-4`}
 									>
 										<th
 											scope="row"
-											className="px-6 py-4 font-medium whitespace-nowrap"
+											className="font-medium whitespace-nowrap"
 										>
 											{i + 1}
 										</th>
-										<td className="px-6 py-4">{name}</td>
-										<td className="px-6 py-4">{age}</td>
-										<td className="px-6 py-4">{genderO[gender]}</td>
-										<td className="px-6 py-4">{smokingO[smoking]}</td>
-										<td className="px-6 py-4">{formatBrand(brand)}</td>
+										<td>{name}</td>
+										<td>{age}</td>
+										<td>{genderO[gender]}</td>
+										<td>{smokingO[smoking]}</td>
+										<td>{formatBrand(brand)}</td>
+										<td>
+											<button
+												type="button"
+												className="bg-red-600 text-white px-1 rounded-sm cursor-pointer"
+												onClick={() => dispatch(removeEntry(i))}
+											>
+												Delete
+											</button>
+										</td>
 									</tr>
 								),
 							)}
