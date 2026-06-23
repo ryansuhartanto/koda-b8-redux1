@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
 
 const BRAND_LABELS = {
@@ -12,8 +13,7 @@ function formatBrand(brands = []) {
 }
 
 export default function Result() {
-	const raw = localStorage.getItem("data");
-	const data = raw ? JSON.parse(raw) : [];
+	const data = useSelector((state) => state.survey.entries);
 
 	const genderO = {
 		male: "Laki-laki",

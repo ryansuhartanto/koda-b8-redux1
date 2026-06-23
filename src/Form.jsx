@@ -1,9 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router";
 import * as yup from "yup";
 
+import { addEntry } from "#/store/reducers/survey";
 import { cn } from "#/utils";
 
 const tw = {
@@ -124,6 +126,7 @@ function Button({ variant = "primary", className, children, ...props }) {
 }
 
 export default function Form() {
+	const dispatch = useDispatch();
 	const [submitted, setSubmitted] = useState(false);
 
 	const {
@@ -137,8 +140,7 @@ export default function Form() {
 	});
 
 	function onSubmit(data) {
-		const existing = JSON.parse(localStorage.getItem("data") ?? "[]");
-		localStorage.setItem("data", JSON.stringify([...existing, data]));
+		dispatch(addEntry(data));
 		setSubmitted(true);
 	}
 
